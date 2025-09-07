@@ -1,24 +1,56 @@
 const sql = require("mssql");
 
-// Configuração do SQL Server (ajuste para seu ambiente)
+// Validação das variáveis
+const requiredEnv = ["DB_USER", "DB_PASSWORD", "DB_SERVER", "DB_NAME"];
+const missing = requiredEnv.filter((k) => !process.env[k] || process.env[k].length === 0);
+if (missing.length) {
+  throw new Error(
+    `Variáveis de ambiente ausentes: ${missing.join(", ")}. Configure-as no arquivo .env.`
+  );
+}
+
 const config = {
-  user: "sa",               // seu usuário do SQL Server
-  password: "123456",    // senha
-  server: "localhost",      // servidor
-  database: "CadProdComp",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  database: process.env.DB_NAME,
   options: {
-    encrypt: false, // coloque true se for Azure
-    trustServerCertificate: true,
+    encrypt: String(process.env.DB_ENCRYPT).toLowerCase() === "true",
+    trustServerCertificate: String(process.env.DB_TRUST_CERT).toLowerCase() === "true",
+  },
+  pool: {
+    max: Number(process.env.DB_POOL_MAX),
+    min: Number(process.env.DB_POOL_MIN),
+    idleTimeoutMillis: Number(process.env.DB_POOL_IDLE),
   },
 };
 
-async function getConnection() {
+let poolPromise;
+
+function getConnection() {
+  if (!poolPromise) {
+    poolPromise = sql
+      .connect(config)
+      .then((pool) => {
+        return pool;
+      })
+      .catch((err) => {
+        poolPromise = undefined;
+        console.error("Erro ao conectar no SQL Server:", err);
+        throw err;
+      });
+  }
+  return poolPromise;
+}
+
+async function closePool() {
   try {
-    const pool = await sql.connect(config);
-    return pool;
+    if (sql?.connected) {
+      await sql.close();
+    }
   } catch (err) {
-    console.error("Erro na conexão SQL:", err);
+    console.error("Erro ao fechar pool do SQL Server:", err);
   }
 }
 
-module.exports = { sql, getConnection };
+module.exports = { sql, getConnection, closePool };

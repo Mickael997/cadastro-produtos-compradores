@@ -5,7 +5,7 @@ import Toast from "../components/Toast";
 import WarningIcon from "../components/WarningIcon";
 
 function Produtos() {
-  //Passamos as variáveis
+  //Variáveis
   const [nome, setNome] = useState("");
   const [categoria, setCategoria] = useState("Alimentos");
   const [produtos, setProdutos] = useState([]);

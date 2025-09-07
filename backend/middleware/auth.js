@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET = "segredo_super_forte";
+const SECRET = process.env.JWT_SECRET;
 
 function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;

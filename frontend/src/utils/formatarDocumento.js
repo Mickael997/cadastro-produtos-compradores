@@ -3,7 +3,7 @@ export function formatarDocumento(valor) {
 
   // Remove tudo que não for número
   // Ou seja pontos, traços, letras
-  const digits = valor.replace(/\D/g, "");
+  const digits = valor.replace(/\D/g, "").slice(0, 14);
 
   if (digits.length <= 11) {
     // Formatação para CPF

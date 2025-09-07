@@ -2,16 +2,19 @@ import { useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
+import Modal from "../components/Modal";
+import WarningIcon from "../components/WarningIcon";
 
 function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [toast, setToast] = useState({ open: false, type: "success", message: "" });
+  const [modal, setModal] = useState({ open: false, title: "", message: "" });
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     if (!username || !password) {
-      alert("Preencha todos os campos!");
+      setModal({ open: true, title: "Atenção", message: "Preencha todos os campos!" });
       return;
     }
 
@@ -57,6 +60,19 @@ function Login({ setUser }) {
         </div>
       </div>
       <Toast open={toast.open} type={toast.type} message={toast.message} onClose={() => setToast({ ...toast, open: false })} />
+      <Modal
+        isOpen={modal.open}
+        title={modal.title}
+        icon={<WarningIcon />}
+        onClose={() => setModal({ open: false, title: "", message: "" })}
+      >
+        <p>{modal.message}</p>
+        <div className="modal-actions">
+          <button className="btn-primary" onClick={() => setModal({ open: false, title: "", message: "" })}>
+            OK
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

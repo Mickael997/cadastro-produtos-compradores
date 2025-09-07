@@ -209,13 +209,14 @@ function Compradores() {
                   placeholder="Nome do comprador"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className={modalError ? "input-error" : undefined}
                 />
                 <input
                   type="text"
                   placeholder="CPF/CNPJ"
                   value={documento}
+                  maxLength={18}
                   onChange={(e) => setDocumento(formatarDocumento(e.target.value))}
+                  className={modalError ? "input-error" : undefined}
                 />
               </div>
               {modalError && <div className="field-error">{modalError}</div>}
@@ -255,13 +256,14 @@ function Compradores() {
                   placeholder="Nome do comprador"
                   value={novoNome}
                   onChange={(e) => setNovoNome(e.target.value)}
-                  className={modalError ? "input-error" : undefined}
                 />
                 <input
                   type="text"
                   placeholder="CPF/CNPJ"
                   value={novoDocumento}
+                  maxLength={18}
                   onChange={(e) => setNovoDocumento(formatarDocumento(e.target.value))}
+                  className={modalError ? "input-error" : undefined}
                 />
               </div>
               {modalError && <div className="field-error">{modalError}</div>}

@@ -4,7 +4,7 @@
   padding-right: 6px;
 }
 
-/* opcional: estiliza a barra dentro do card */
+/* estiliza a barra dentro do card */
 .scroll-area::-webkit-scrollbar { width: 8px; height: 8px; }
 .scroll-area::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 8px; }
 .scroll-area:hover::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); }
@@ -13,8 +13,8 @@
   --bg: #f4f6f9;
   --text: #1f2937;
   --muted: #6b7280;
-  /* Navbar/Sidebar base color adjusted to avoid clashing with logo */
-  --primary: #0f1b2b; /* mais escuro para aumentar contraste */
+  /* Navbar/Sidebar */
+  --primary: #0f1b2b;
   --primary-600: #1b2a3c;
   --danger: #e44453;
   --surface: #ffffff;
@@ -112,13 +112,13 @@ nav a.active {
 /* Tipografia mais suave */
 h2 {
   font-size: 1.5rem;
-  color: var(--primary); /* Blue Dianne */
+  color: var(--primary);
   margin-bottom: 20px;
 }
 
 h3 {
   font-size: 1.2rem;
-  color: #2c3c4a; /* Pickled Bluewood */
+  color: #2c3c4a;
   margin-bottom: 10px;
 }
 
@@ -206,15 +206,15 @@ button:hover {
 .btn-primary { background: var(--primary-600); }
 
 .btn-edit {
-  background: var(--primary-600); /* Pickled Bluewood - editar */
+  background: var(--primary-600);
 }
 
 .btn-secondary {
-  background: var(--muted); /* cinza neutro - cancelar */
+  background: var(--muted); /* cancelar */
 }
 
 .btn-danger {
-  background: var(--danger); /* Mandy - excluir */
+  background: var(--danger); /* excluir */
 }
 
 /* Lista */
@@ -246,8 +246,6 @@ li button {
   align-items: center;
   gap: 10px;
 }
-
-/* Navbar simples (sem hamburger) */
 
 /* Sidebar - hamburger lateral independente da navbar */
 .sidebar-toggle {
@@ -338,7 +336,7 @@ li button {
   align-items: center;
 }
 
-/* Produtos page */
+/* Produtos */
 .produtos-card { padding: 24px; }
 .produtos-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .produtos-title { display: flex; align-items: center; gap: 10px; }
@@ -367,7 +365,7 @@ li button {
 .icon-btn.delete:hover { background: #ef4444; border-color: #ef4444; color: #fff; box-shadow: 0 4px 10px rgba(239,68,68,0.35); }
 .icon-btn + .icon-btn { margin-left: 8px; }
 
-/* Empty state */
+/* Estado vazio */
 .empty-state {
   text-align: center;
   padding: 40px 20px;

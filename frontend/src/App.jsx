@@ -28,6 +28,7 @@ function App() {
               className="btn-danger"
               onClick={() => {
                 localStorage.removeItem("user");
+                localStorage.removeItem("token");
                 setUser(null);
                 setModal({ open: false });
                 setToast({ open: true, type: "info", message: "Sessão encerrada" });

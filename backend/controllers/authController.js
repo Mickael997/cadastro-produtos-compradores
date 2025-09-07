@@ -2,7 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Usuario = require("../models/usuarioModel");
 
-const SECRET = "segredo_super_forte";
+const SECRET = process.env.JWT_SECRET;
+const EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
 async function login(req, res) {
   const { username, password } = req.body;
@@ -15,7 +16,7 @@ async function login(req, res) {
     const senhaValida = await bcrypt.compare(password, user.passwordHash);
     if (!senhaValida) return res.status(401).send("Usuário ou senha inválidos");
 
-    const token = jwt.sign({ id: user.id, role: user.role }, SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id, role: user.role }, SECRET, { expiresIn: EXPIRES_IN });
     res.json({ token, username: user.username, role: user.role });
   } catch (err) {
     res.status(500).send("Erro ao autenticar");
